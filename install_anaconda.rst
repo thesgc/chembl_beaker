@@ -51,7 +51,7 @@ Now Install the RDKit globally in order to make the database work
   
   create user astretton with superuser;
   
-  \q
+  \\q
   
   exit
   
