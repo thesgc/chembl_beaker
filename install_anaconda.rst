@@ -1,4 +1,4 @@
-In order to install beaker on anaconda, run the following:
+In order to install beaker and all chembl dependencies on anaconda, run the following:
 ===============================
 
 Clone the repository
@@ -43,7 +43,7 @@ Now install all of the dependency apt gets in the environment
 
   sh install_core_libs.sh
 
-Now Install the RDKit globally in order to make the database work
+Now add a user for the install
 
   sudo su postgres
   
@@ -55,6 +55,15 @@ Now Install the RDKit globally in order to make the database work
   
   exit
   
+edit pg_hba.conf and add a line for your user 
+
+  sudo vim /etc/postgresql/9.3/main/pg_hba.conf
+  local all astretton ident
+
+Now Install the RDKit globally in order to make the database work
+
   wget https://github.com/chembl/mychembl/blob/master/rdkit_install.sh
   
   sh rdkit_install.sh
+  
+  
