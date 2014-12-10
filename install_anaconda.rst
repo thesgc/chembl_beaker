@@ -1,0 +1,25 @@
+In order to install beaker on anaconda, run the following:
+===============================
+
+Clone the repository
+
+Install anaconda locally:
+
+  wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
+  chmod +x miniconda.sh
+  sh miniconda.sh
+  
+Then change to that directory and add channels
+
+    cd miniconda/bin
+    ./conda config --add channels https://conda.binstar.org/auto
+    ./conda config --add channels https://conda.binstar.org/auto
+    ./conda config --add channels https://conda.binstar.org/bcbio
+    ./conda config --add channels https://conda.binstar.org/ric
+    ./conda config --add channels https://conda.binstar.org/minadyn
+    ./conda config --add channels https://conda.binstar.org/pkgw
+    ./conda config --add channels https://conda.binstar.org/jacksongs
+    ./conda config --add channels https://conda.binstar.org/mutirri
+    
+Now create a virtualenv using the conda requirements file
+
