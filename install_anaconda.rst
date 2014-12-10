@@ -37,3 +37,24 @@ Now create a virtualenv using the conda requirements file
 
   ./conda create --yes python=2.7 -m -n beaker --file=/var/www/chembl_beaker/anaconda_requirements.txt
 
+Now install all of the dependency apt gets in the environment
+
+  wget https://raw.githubusercontent.com/chembl/mychembl/master/install_core_libs.sh
+
+  sh install_core_libs.sh
+
+Now Install the RDKit globally in order to make the database work
+
+  sudo su postgres
+  
+  psql postgres
+  
+  create user astretton with superuser;
+  
+  \q
+  
+  exit
+  
+  wget https://github.com/chembl/mychembl/blob/master/rdkit_install.sh
+  
+  sh rdkit_install.sh
