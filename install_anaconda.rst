@@ -12,17 +12,16 @@ Install anaconda locally:
 Then change to that directory and add channels
 
   cd miniconda/bin
-  
   ./conda config --add channels https://conda.binstar.org/auto
-      ./conda config --add channels https://conda.binstar.org/auto
-      ./conda config --add channels https://conda.binstar.org/bcbio
-      ./conda config --add channels https://conda.binstar.org/ric
-      ./conda config --add channels https://conda.binstar.org/minadyn
-      ./conda config --add channels https://conda.binstar.org/pkgw
-      ./conda config --add channels https://conda.binstar.org/jacksongs
-      ./conda config --add channels https://conda.binstar.org/mutirri
+  ./conda config --add channels https://conda.binstar.org/auto
+  ./conda config --add channels https://conda.binstar.org/bcbio
+  ./conda config --add channels https://conda.binstar.org/ric
+  ./conda config --add channels https://conda.binstar.org/minadyn
+  ./conda config --add channels https://conda.binstar.org/pkgw
+  ./conda config --add channels https://conda.binstar.org/jacksongs
+  ./conda config --add channels https://conda.binstar.org/mutirri
     
 Now create a virtualenv using the conda requirements file
 
-    ./conda create --yes python=2.7 -m -n beaker --file=/var/www/chembl_beaker/anaconda_requirements.txt
+  ./conda create --yes python=2.7 -m -n beaker --file=/var/www/chembl_beaker/anaconda_requirements.txt
 
