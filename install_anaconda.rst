@@ -23,3 +23,5 @@ Then change to that directory and add channels
     
 Now create a virtualenv using the conda requirements file
 
+    ./conda create --yes python=2.7 -m -n beaker --file=/var/www/chembl_beaker/anaconda_requirements.txt
+
