@@ -30,6 +30,8 @@ Then change to that directory and add channels
   ./conda config --add channels https://conda.binstar.org/jacksongs
   
   ./conda config --add channels https://conda.binstar.org/mutirri
+  
+  ./conda config --add channels https://conda.binstar.org/zero323 
     
 Now create a virtualenv using the conda requirements file
 
