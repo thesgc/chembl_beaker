@@ -67,14 +67,23 @@ Now Install the RDKit globally in order to make the database work
   sh rdkit_install.sh
   
 Now install openbabel and add it to the python path
+
   wget http://sourceforge.net/projects/openbabel/files/openbabel/2.3.2/openbabel-2.3.2.tar.gz
+  
   tar -xvf openbabel-2.3.2.tar.gz
+  
   cd openbabel-2.3.2
+  
   mkdir build
+  
   cd build
-  cmake -DPYTHON_BINDINGS=ON
+  
+  cmake .. -DPYTHON_BINDINGS=ON
+  
   make
+  
   make install
+  
   echo $PYTHONPATH=/usr/local/bin >> ~/.bashrc
   
 
