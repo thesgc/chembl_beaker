@@ -35,7 +35,7 @@ Then change to that directory and add channels
     
 Now create a virtualenv using the conda requirements file
 
-  ./conda create --yes python=2.7 -m -n beaker --file=/var/www/chembl_beaker/anaconda_requirements.txt
+  ./conda create --yes python=2.7.6 -m -n beaker --file=/var/www/chembl_beaker/anaconda_requirements.txt
 
 Now install all of the dependency apt gets in the environment
 
@@ -66,4 +66,15 @@ Now Install the RDKit globally in order to make the database work
   
   sh rdkit_install.sh
   
+Now install openbabel and add it to the python path
+  wget http://sourceforge.net/projects/openbabel/files/openbabel/2.3.2/openbabel-2.3.2.tar.gz
+  tar -xvf openbabel-2.3.2.tar.gz
+  cd openbabel-2.3.2
+  mkdir build
+  cd build
+  cmake -DPYTHON_BINDINGS=ON
+  make
+  make install
+  echo $PYTHONPATH=/usr/local/bin >> ~/.bashrc
   
+
