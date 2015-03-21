@@ -53,7 +53,7 @@ def _mols2svg(mols,size,legend, calculate=1):
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-def _ctab2svg(data,size,legend):
+def _ctab2svg(data,size,legend, calculate=1):
     return _mols2svg(_parseMolData(data), size, legend)
 
 #-----------------------------------------------------------------------------------------------------------------------

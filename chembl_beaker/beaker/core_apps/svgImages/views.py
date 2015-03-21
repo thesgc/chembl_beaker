@@ -25,7 +25,7 @@ Legend is optional label in the bottom of image.
     calculate = int(calculate)
     data = base64.urlsafe_b64decode(ctab)
     response.content_type = 'image/svg+xml'
-    return _ctab2svg(data,size,legend, calculate)
+    return _ctab2svg(data,size,legend, calculate=calculate)
 
 #-----------------------------------------------------------------------------------------------------------------------
 
