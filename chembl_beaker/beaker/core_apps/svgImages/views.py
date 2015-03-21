@@ -11,8 +11,10 @@ import base64
 
 @app.route('/ctab2svg/<ctab>', method=['OPTIONS', 'GET'], name="ctab2svg")
 @app.route('/ctab2svg/<ctab>/<size>', method=['OPTIONS', 'GET'], name="ctab2svg")
-@app.route('/ctab2svg/<ctab>/<size>/<legend>', method=['OPTIONS', 'GET'], name="ctab2svg")
-def ctab2svg(ctab, size=200, legend=''):
+@app.route('/ctab2svg/<ctab>/<size>/<calculate>', method=['OPTIONS', 'GET'], name="ctab2svg")
+@app.route('/ctab2svg/<ctab>/<size>/<calculate>/<legend>', method=['OPTIONS', 'GET'], name="ctab2svg")
+
+def ctab2svg(ctab, size=200, calculate=1 ,legend=''):
     """
 Converts CTAB to SVG vector graphic. CTAB is urlsafe_base64 encoded string containing single molfile or
 concatenation of multiple molfiles. Size is the optional size of image in pixels (default value is 200 px).
@@ -20,9 +22,10 @@ Legend is optional label in the bottom of image.
     """
 
     size = int(size)
+    calculate = int(calculate)
     data = base64.urlsafe_b64decode(ctab)
     response.content_type = 'image/svg+xml'
-    return _ctab2svg(data,size,legend)
+    return _ctab2svg(data,size,legend, calculate)
 
 #-----------------------------------------------------------------------------------------------------------------------
 

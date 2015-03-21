@@ -19,7 +19,7 @@ parser.add_option("-c", "--config", dest="config_path",
 conf_path = options.config_path
 
 config.load_config(conf_path)
-
+print config
 apps = json.loads(config.get('installed_apps', '[]'))
 plugins = json.loads(config.get('plugins', '[]'))
 
