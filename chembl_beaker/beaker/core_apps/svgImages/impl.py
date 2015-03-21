@@ -26,9 +26,9 @@ from chembl_beaker.beaker.utils.chemical_transformation import _computeCoords
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-def _mols2svg(mols,size,legend):
-
-    _apply(mols, _computeCoords)
+def _mols2svg(mols,size,legend, calculate=1):
+    if calculate:
+        _apply(mols, _computeCoords)
 
     molsPerRow=min(len(mols),4)
     totalWidth=molsPerRow*size
