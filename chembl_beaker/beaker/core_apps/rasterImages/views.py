@@ -25,6 +25,29 @@ is 200 px). Legend is optional label in the bottom of image.
         ret = base64.b64encode(ret)
     return ret
 
+
+@app.route('/ctab2image/raw/<ctab>', method=['OPTIONS', 'GET'], name="rawctab2image")
+@app.route('/ctab2image/raw/<ctab>/<size>', method=['OPTIONS', 'GET'], name="rawctab2image")
+@app.route('/ctab2image/raw/<ctab>/<size>/<legend>', method=['OPTIONS', 'GET'], name="rawctab2image")
+def rawctab2image(ctab, size=200, legend=''):
+    """
+Converts CTAB to PNG image using the raw Mol data without recalculation. CTAB is urlsafe_base64 encoded string containing
+single molfile or concatenation of multiple molfiles. Size is the optional size of image in pixels (default value
+is 200 px). Legend is optional label in the bottom of image.
+    """
+
+    size = int(size)
+    data = base64.urlsafe_b64decode(ctab)
+    response.content_type = 'image/png'
+    ret = _ctab2image(data,size,legend, recalc=None)
+    if request.is_ajax:
+        ret = base64.b64encode(ret)
+    return ret
+
+
+
+
+
 #-----------------------------------------------------------------------------------------------------------------------
 
 @app.route('/ctab2image', method=['OPTIONS', 'POST'], name="ctab2image")

@@ -17,22 +17,23 @@ def _mols2imageStream(mols, f, format, size, legend):
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-def _mols2imageString(mols,size,legend, format):
+def _mols2imageString(mols,size,legend, format, recalc=True):
     if not mols:
         return ''
-    _apply(mols, _computeCoords)
+    if recalc:
+        _apply(mols, _computeCoords)
     imageData = StringIO.StringIO()
     _mols2imageStream(mols, imageData, format, size, legend)
     return imageData.getvalue()
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-def _ctab2image(data,size,legend):
-    return _mols2imageString(_parseMolData(data),size,legend, 'PNG')
+def _ctab2image(data,size,legend, recalc=True):
+    return _mols2imageString(_parseMolData(data),size,legend, 'PNG', recalc=recalc)
 
 #-----------------------------------------------------------------------------------------------------------------------
 
 def _smiles2image(data,size,legend):
-    return _mols2imageString(_parseSMILESData(data), size, legend, 'PNG')
+    return _mols2imageString(_parseSMILESData(data), size, legend, 'PNG', recalc=recalc)
 
 #-----------------------------------------------------------------------------------------------------------------------
