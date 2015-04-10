@@ -3,7 +3,8 @@ __author__ = 'mnowotka'
 #-----------------------------------------------------------------------------------------------------------------------
 
 import StringIO
-from rdkit.Chem import Draw
+from rdkit.Chem import Draw, SanitizeMol
+from rdkit import Chem
 from chembl_beaker.beaker.utils.functional import _apply
 from chembl_beaker.beaker.utils.chemical_transformation import _computeCoords
 from chembl_beaker.beaker.utils.io import _parseMolData, _parseSMILESData
@@ -23,6 +24,9 @@ def _mols2imageString(mols,size,legend, format, recalc=True):
     if recalc:
         _apply(mols, _computeCoords)
     imageData = StringIO.StringIO()
+  #  for mol in mols:
+        #SanitizeMol(mol,sanitizeOps=Chem.SanitizeFlags.SANITIZE_ALL^Chem.SanitizeFlags.SANITIZE_CLEANUPCHIRALITY)
+ #       Chem.AssignAtomChiralTagsFromStructure(mol,replaceExistingTags=False)
     _mols2imageStream(mols, imageData, format, size, legend)
     return imageData.getvalue()
 

@@ -26,9 +26,9 @@ is 200 px). Legend is optional label in the bottom of image.
     return ret
 
 
-@app.route('/ctab2image/raw/<ctab>', method=['OPTIONS', 'GET'], name="rawctab2image")
-@app.route('/ctab2image/raw/<ctab>/<size>', method=['OPTIONS', 'GET'], name="rawctab2image")
-@app.route('/ctab2image/raw/<ctab>/<size>/<legend>', method=['OPTIONS', 'GET'], name="rawctab2image")
+@app.route('/ctab2imageraw/<ctab>', method=['OPTIONS', 'GET'], name="rawctab2image")
+@app.route('/ctab2imageraw/<ctab>/<size>', method=['OPTIONS', 'GET'], name="rawctab2image")
+@app.route('/ctab2imageraw/<ctab>/<size>/<legend>', method=['OPTIONS', 'GET'], name="rawctab2image")
 def rawctab2image(ctab, size=200, legend=''):
     """
 Converts CTAB to PNG image using the raw Mol data without recalculation. CTAB is urlsafe_base64 encoded string containing
