@@ -10,13 +10,18 @@ from rdkit.Chem import SDWriter
 from rdkit.Chem import SmilesWriter
 from chembl_beaker.beaker.utils.functional import _apply
 from chembl_beaker.beaker.utils.chemical_transformation import _computeCoords
+from rdkit.Chem import SanitizeMol
 
 #-----------------------------------------------------------------------------------------------------------------------
 
 def _parseMolData(data):
     suppl = SDMolSupplier()
-    suppl.SetData(str(data))
-    return [x for x in suppl if x]
+    suppl.SetData(str(data), sanitize=False)
+    data = [x for x in suppl if x]
+    for x in data:
+        if not x.HasProp("_drawingBondsWedged"):
+            SanitizeMol(x)
+    return data
 
 #-----------------------------------------------------------------------------------------------------------------------
 
