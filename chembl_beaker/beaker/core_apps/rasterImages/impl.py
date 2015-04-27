@@ -8,25 +8,30 @@ from rdkit import Chem
 from chembl_beaker.beaker.utils.functional import _apply
 from chembl_beaker.beaker.utils.chemical_transformation import _computeCoords
 from chembl_beaker.beaker.utils.io import _parseMolData, _parseSMILESData
+from rdkit.Chem import  SDMolSupplier, AllChem, Draw, SanitizeMol, SanitizeFlags,   AssignAtomChiralTagsFromStructure
 
 #-----------------------------------------------------------------------------------------------------------------------
 
 def _mols2imageStream(mols, f, format, size, legend):
+    kek = True
+    if mols[0].HasProp("_drawingBondsWedged"):
+        kek=False
     image = Draw.MolsToGridImage(mols,molsPerRow=min(len(mols),4),subImgSize=(size,size),
-                                    legends=[x.GetProp("_Name") if x.HasProp("_Name") else legend for x in mols])
+                                    legends=[x.GetProp("_Name") if x.HasProp("_Name") else legend for x in mols], kekulize=kek)
     image.save(f, format)
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-def _mols2imageString(mols,size,legend, format, recalc=True):
+def _mols2imageString(mols,size,legend, format, recalc=False):
     if not mols:
         return ''
-    if recalc:
-        _apply(mols, _computeCoords)
+ #   if recalc:
+  #      _apply(mols, _computeCoords)
     imageData = StringIO.StringIO()
-  #  for mol in mols:
-        #SanitizeMol(mol,sanitizeOps=Chem.SanitizeFlags.SANITIZE_ALL^Chem.SanitizeFlags.SANITIZE_CLEANUPCHIRALITY)
- #       Chem.AssignAtomChiralTagsFromStructure(mol,replaceExistingTags=False)
+    for mol in mols:
+        SanitizeMol(mol,sanitizeOps=SanitizeFlags.SANITIZE_ALL^SanitizeFlags.SANITIZE_CLEANUPCHIRALITY^Chem.SanitizeFlags.SANITIZE_SETCONJUGATION^Chem.SanitizeFlags.SANITIZE_SETAROMATICITY)
+
+        AllChem.AssignAtomChiralTagsFromStructure(mol,replaceExistingTags=False)
     _mols2imageStream(mols, imageData, format, size, legend)
     return imageData.getvalue()
 

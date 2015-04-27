@@ -10,24 +10,28 @@ from rdkit.Chem import SDWriter
 from rdkit.Chem import SmilesWriter
 from chembl_beaker.beaker.utils.functional import _apply
 from chembl_beaker.beaker.utils.chemical_transformation import _computeCoords
+from rdkit.Chem import SanitizeMol
 
 #-----------------------------------------------------------------------------------------------------------------------
 
 def _parseMolData(data):
     suppl = SDMolSupplier()
-    suppl.SetData(str(data))
-    for x in suppl:
-        if x:
-            ctab = MolToMolBlock(x)
-            ctablines = [item.split("0.0000") for item in ctab.split("\n") if "0.0000" in item]
-            needs_redraw = 0
-            for line in ctablines:
-                if len(line) > 3:
-                    needs_redraw +=1
-            if needs_redraw == len(ctablines):
-                #check for overlapping molecules in the CTAB 
-                Compute2DCoords(x)
-    return [x for x in suppl if x]
+
+    suppl.SetData(str(data), sanitize=False)
+    data = [x for x in suppl if x]
+    for x in data:
+        if not x.HasProp("_drawingBondsWedged"):
+            SanitizeMol(x)
+        ctab = MolToMolBlock(x)
+        ctablines = [item.split("0.0000") for item in ctab.split("\n") if "0.0000" in item]
+        needs_redraw = 0
+        for line in ctablines:
+            if len(line) > 3:
+                needs_redraw +=1
+        if needs_redraw == len(ctablines):
+             #check for overlapping molecules in the CTAB 
+            Compute2DCoords(x)
+    return data
 
 
 #-----------------------------------------------------------------------------------------------------------------------
