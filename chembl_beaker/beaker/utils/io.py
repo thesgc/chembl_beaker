@@ -31,6 +31,7 @@ def _parseMolData(data):
                 needs_redraw +=1
         if needs_redraw == len(ctablines):
              #check for overlapping molecules in the CTAB 
+            SanitizeMol(x)
             Compute2DCoords(x)
             print "testr"
     return data
