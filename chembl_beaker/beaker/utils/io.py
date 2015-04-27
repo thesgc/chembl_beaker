@@ -11,6 +11,7 @@ from rdkit.Chem import SmilesWriter
 from chembl_beaker.beaker.utils.functional import _apply
 from chembl_beaker.beaker.utils.chemical_transformation import _computeCoords
 from rdkit.Chem import SanitizeMol
+from rdkit.Chem.AllChem import Compute2DCoords
 
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -31,6 +32,7 @@ def _parseMolData(data):
         if needs_redraw == len(ctablines):
              #check for overlapping molecules in the CTAB 
             Compute2DCoords(x)
+            print "testr"
     return data
 
 
