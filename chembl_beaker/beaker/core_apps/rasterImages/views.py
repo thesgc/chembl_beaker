@@ -42,8 +42,8 @@ is 200 px). Legend is optional label in the bottom of image.
     data = base64.urlsafe_b64decode(ctab)
     response.content_type = 'image/png'
     ret = _ctab2image(data,size,legend, recalc=None)
-    if request.is_ajax:
-        ret = base64.b64encode(ret)
+    #if request.is_ajax:
+    ret = base64.b64encode(ret)
     return ret
 
 
@@ -65,8 +65,8 @@ Converts CTAB to PNG image. CTAB is either single molfile or SDF file. Size is t
     smarts = request.json.get('smarts', None)
     response.content_type = 'image/png'
     ret = _ctab2image(data,size,legend,highlightMatch=smarts)
-    if request.is_ajax:
-        ret = base64.b64encode(ret)
+    #if request.is_ajax:
+    ret = base64.b64encode(ret)
     return ret
 
 #-----------------------------------------------------------------------------------------------------------------------

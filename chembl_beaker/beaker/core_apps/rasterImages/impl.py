@@ -13,6 +13,7 @@ from rdkit.Chem import  SDMolSupplier, AllChem, Draw, SanitizeMol, SanitizeFlags
 #-----------------------------------------------------------------------------------------------------------------------
 
 def _mols2imageStream(mols, f, format, size, legend, highlightMatch=None):
+    highlights = None
     if highlightMatch:
         pattern = Chem.MolFromSmarts(highlightMatch)
         highlights = [mol.GetSubstructureMatch(pattern) for mol in mols]
@@ -20,7 +21,7 @@ def _mols2imageStream(mols, f, format, size, legend, highlightMatch=None):
     if mols[0].HasProp("_drawingBondsWedged"):
         kek=False
     image = Draw.MolsToGridImage(mols,molsPerRow=min(len(mols),4),subImgSize=(size,size),
-                                    legends=[x.GetProp("_Name") if x.HasProp("_Name") else legend for x in mols], kekulize=kek,highlightAtomLists=highlights
+                                    legends=[ legend for x in mols], kekulize=kek,highlightAtomLists=highlights
  )
     image.save(f, format)
 
