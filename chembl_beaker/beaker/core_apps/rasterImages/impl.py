@@ -16,7 +16,7 @@ def _mols2imageStream(mols, f, format, size, legend, highlightMatch=None):
     highlights = None
     if highlightMatch:
         pattern = Chem.MolFromSmarts(highlightMatch)
-        highlights = [mol.GetSubstructureMatch(pattern) for mol in mols]
+        highlights = [mol.GetSubstructMatch(pattern) for mol in mols]
     kek = True
     if mols[0].HasProp("_drawingBondsWedged"):
         kek=False
