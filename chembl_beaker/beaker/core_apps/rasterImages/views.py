@@ -9,8 +9,10 @@ from chembl_beaker.beaker.core_apps.rasterImages.impl import _ctab2image, _smile
 
 @app.route('/ctab2image/<ctab>', method=['OPTIONS', 'GET'], name="ctab2image")
 @app.route('/ctab2image/<ctab>/<size>', method=['OPTIONS', 'GET'], name="ctab2image")
-@app.route('/ctab2image/<ctab>/<size>/<legend>', method=['OPTIONS', 'GET'], name="ctab2image")
-def ctab2image(ctab, size=200, legend=''):
+@app.route('/ctab2image/<ctab>/<size>/legend/<legend>', method=['OPTIONS', 'GET'], name="ctab2image")
+@app.route('/ctab2image/<ctab>/<size>/smarts/<smarts>', method=['OPTIONS', 'GET'], name="ctab2image")
+
+def ctab2image(ctab, size=200, legend='', smarts=None):
     """
 Converts CTAB to PNG image. CTAB is urlsafe_base64 encoded string containing
 single molfile or concatenation of multiple molfiles. Size is the optional size of image in pixels (default value
@@ -20,7 +22,7 @@ is 200 px). Legend is optional label in the bottom of image.
     size = int(size)
     data = base64.urlsafe_b64decode(ctab)
     response.content_type = 'image/png'
-    ret = _ctab2image(data,size,legend)
+    ret = _ctab2image(data,size,legend,highlightMatch=smarts)
     if request.is_ajax:
         ret = base64.b64encode(ret)
     return ret
@@ -57,11 +59,12 @@ Converts CTAB to PNG image. CTAB is either single molfile or SDF file. Size is t
 (default value is 200 px). Legend is optional label in the bottom of image.
     """
 
-    size = int(request.forms.get('size', 200))
-    data = request.files.values()[0].file.read() if len(request.files) else request.body.read()
-    legend=request.params.get('legend','')
+    size = int(request.json.get('size', 200))
+    data = request.files.values()[0].file.read() if len(request.files) else request.json.get("ctab")
+    legend = request.json.get('legend','')
+    smarts = request.json.get('smarts', None)
     response.content_type = 'image/png'
-    ret = _ctab2image(data,size,legend)
+    ret = _ctab2image(data,size,legend,highlightMatch=smarts)
     if request.is_ajax:
         ret = base64.b64encode(ret)
     return ret
