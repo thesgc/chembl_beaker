@@ -34,8 +34,10 @@ def _mols2imageString(mols,size,legend, format, recalc=False, highlightMatch=Non
   #      _apply(mols, _computeCoords)
     imageData = StringIO.StringIO()
     for mol in mols:
-        SanitizeMol(mol,sanitizeOps=SanitizeFlags.SANITIZE_ALL^SanitizeFlags.SANITIZE_CLEANUPCHIRALITY^Chem.SanitizeFlags.SANITIZE_SETCONJUGATION^Chem.SanitizeFlags.SANITIZE_SETAROMATICITY)
-
+        try:
+            SanitizeMol(mol,sanitizeOps=SanitizeFlags.SANITIZE_ALL^SanitizeFlags.SANITIZE_CLEANUPCHIRALITY^Chem.SanitizeFlags.SANITIZE_SETCONJUGATION^Chem.SanitizeFlags.SANITIZE_SETAROMATICITY)
+        except ValueError:
+            return imageData.getvalue()
         AllChem.AssignAtomChiralTagsFromStructure(mol,replaceExistingTags=False)
     _mols2imageStream(mols, imageData, format, size, legend, highlightMatch=highlightMatch)
     return imageData.getvalue()
